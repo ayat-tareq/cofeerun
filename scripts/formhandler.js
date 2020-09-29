@@ -25,8 +25,19 @@ FormHandler.prototype.addSubmitHandler = function (fn) {
      this.elements[0].focus();
 });
  this.$formElement.on('input', function (event){
-  var cofstr=$(strengthLevel).val()
+  var cofstr=$("#strengthLevel").val()
   $(".badge").text(cofstr)
+});
+};
+FormHandler.prototype.addInputHandler = function (fn) {
+  console.log('Setting input handler for form');
+  this.$formElement.on('input', '[name="emailAddress"]', function (event) {
+    var emailAddress = event.target.value;
+    var message = ''; if (fn(emailAddress)) {
+event.target.setCustomValidity(''); } else {
+message = emailAddress + ' is not an authorized email address!';
+ event.target.setCustomValidity(message);
+}
 });
 };
 
